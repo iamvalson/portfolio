@@ -9,6 +9,10 @@ const Footer = () => {
       href: "https://www.linkedin.com/in/divine-owai-22823b2ab",
     },
     {
+      label: "Github",
+      href: "https://github.com/iamvalson",
+    },
+    {
       label: "X",
       href: "https://x.com/earthtovalentin",
     },
