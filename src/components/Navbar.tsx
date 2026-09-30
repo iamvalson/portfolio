@@ -4,6 +4,7 @@ import Container from "./Container";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const currentPath = window.location.pathname;
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -49,7 +50,11 @@ const Navbar = () => {
                   className="group relative font-space-grotesk font-medium uppercase tracking-tight"
                 >
                   {navLink.label}
-                  <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                  {navLink.href === currentPath ? (
+                    <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-100 bg-current" />
+                  ) : (
+                    <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                  )}
                 </a>
               ))}
               <button className="cursor-pointer bg-stone-950 px-3 py-2 font-space-grotesk font-medium uppercase text-white transition-opacity hover:opacity-90">
