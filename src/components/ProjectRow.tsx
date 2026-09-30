@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
@@ -20,23 +20,37 @@ interface ProjectRowProps {
 const ProjectRow = ({ project }: ProjectRowProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { id, name, description, technologies, year, githubLink, liveLink, image } = project;
+  const {
+    id,
+    name,
+    description,
+    technologies,
+    year,
+    githubLink,
+    liveLink,
+    image,
+  } = project;
 
   useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsModalOpen(false);
+    };
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKey);
     } else {
       document.body.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKey);
     };
   }, [isModalOpen]);
 
   return (
     <>
       <div
-        className="group relative block border-b border-black/10 py-10 transition-colors duration-500 hover:bg-black/[0.02] sm:py-14 px-4 sm:px-6 lg:px-8 -mx-4 sm:-mx-6 lg:-mx-8"
+        className="group relative block border-b border-black/10 py-10 transition-colors duration-500 hover:bg-black/2 sm:py-14 px-4 sm:px-6 lg:px-8 -mx-4 sm:-mx-6 lg:-mx-8"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -65,11 +79,11 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
                   — {year}
                 </span>
               </div>
-              
+
               <p className="mb-3 font-inter text-lg text-text-grey sm:text-xl">
                 {description}
               </p>
-              
+
               <ul className="mb-8 flex flex-wrap gap-2">
                 {technologies.split(" · ").map((tech) => (
                   <li
@@ -113,7 +127,7 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
             <button
               onClick={() => setIsModalOpen(true)}
               title="View full image"
-              className={`absolute right-4 top-1/2 z-20 hidden h-[240px] w-[360px] -translate-y-1/2 cursor-zoom-in overflow-hidden shadow-2xl transition-all duration-700 ease-out xl:right-16 xl:h-[280px] xl:w-[420px] lg:block ${
+              className={`absolute right-4 top-1/2 z-20 hidden h-60 w-90 -translate-y-1/2 cursor-zoom-in overflow-hidden shadow-2xl transition-all duration-700 ease-out xl:right-16 xl:h-70 xl:w-105 lg:block ${
                 isHovered
                   ? "translate-x-0 opacity-100"
                   : "translate-x-8 opacity-0 pointer-events-none"
@@ -127,9 +141,9 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
             </button>
 
             {/* Image preview - Mobile */}
-            <button 
+            <button
               onClick={() => setIsModalOpen(true)}
-              className="mt-8 block h-[220px] w-full overflow-hidden bg-[#f4f4f4] sm:h-[300px] lg:hidden"
+              className="mt-8 block h-55 w-full overflow-hidden bg-[#f4f4f4] sm:h-75 lg:hidden"
             >
               <img
                 src={image}
@@ -144,30 +158,33 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
       {/* Fullscreen Image Modal */}
       {image && (
         <div
-          className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 sm:p-8 transition-all duration-500 ease-out ${
-            isModalOpen ? "opacity-100 backdrop-blur-sm" : "pointer-events-none opacity-0"
+          className={`fixed inset-0 z-100 flex items-center justify-center bg-black/80 p-4 sm:p-8 transition-all duration-500 ease-out ${
+            isModalOpen
+              ? "opacity-100 backdrop-blur-sm"
+              : "pointer-events-none opacity-0"
           }`}
           onClick={() => setIsModalOpen(false)}
         >
-          <div
-            className="relative flex h-full max-h-[90vh] w-full max-w-6xl items-center justify-center [perspective:1200px]"
-            onClick={(e) => e.stopPropagation()}
+          {/* Close button lives outside stopPropagation so clicking it works from the backdrop too */}
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute right-6 top-6 z-10 text-sm font-medium uppercase tracking-widest text-white/60 transition-colors hover:text-white font-space-grotesk sm:right-10 sm:top-8"
           >
+            Close ✕
+          </button>
+
+          {/* Only the image itself stops propagation */}
+          <div className="relative flex h-full max-h-[90vh] w-full max-w-6xl items-center justify-center perspective-distant">
             <img
               src={image}
               alt={`${name} full view`}
-              className={`max-h-full max-w-full rounded-sm object-contain shadow-2xl transition-all duration-700 ease-out origin-center ${
+              onClick={(e) => e.stopPropagation()}
+              className={`max-h-full max-w-full cursor-default rounded-sm object-contain shadow-2xl transition-all duration-700 ease-out origin-center ${
                 isModalOpen
-                  ? "opacity-100 [transform:rotateX(0deg)_scale(1)]"
-                  : "opacity-0 [transform:rotateX(60deg)_scale(0.8)]"
+                  ? "opacity-100 transform-[rotateX(0deg)_scale(1)]"
+                  : "opacity-0 transform-[rotateX(60deg)_scale(0.8)]"
               }`}
             />
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute right-0 top-0 -translate-y-12 text-sm font-medium uppercase tracking-widest text-white/70 transition-colors hover:text-white font-space-grotesk"
-            >
-              Close
-            </button>
           </div>
         </div>
       )}
