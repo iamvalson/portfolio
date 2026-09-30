@@ -1,3 +1,4 @@
+import { FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaTiktok } from "react-icons/fa6";
 import Container from "./Container";
 
 const Footer = () => {
@@ -7,22 +8,27 @@ const Footer = () => {
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/divine-owai-22823b2ab",
+      Icon: FaLinkedin,
     },
     {
       label: "Github",
       href: "https://github.com/iamvalson",
+      Icon: FaGithub,
     },
     {
       label: "X",
       href: "https://x.com/earthtovalentin",
+      Icon: FaXTwitter,
     },
     {
       label: "Instagram",
       href: "https://instagram.com/earthtovalentinee",
+      Icon: FaInstagram,
     },
     {
       label: "Tiktok",
       href: "https://tiktok.com/earthtovalentine",
+      Icon: FaTiktok,
     },
   ];
 
@@ -42,16 +48,19 @@ const Footer = () => {
             </span>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-5 sm:gap-8">
+          <nav className="flex flex-wrap items-center gap-5 sm:gap-8 mt-2 sm:mt-0">
             {socialLinks.map((socialLink) => (
               <a
                 href={socialLink.href}
                 target="_blank"
                 rel="noreferrer noopener"
                 key={socialLink.href}
-                className="group relative uppercase font-space-grotesk text-sm sm:text-base font-medium tracking-tight"
+                className="group relative flex flex-col items-center uppercase font-space-grotesk text-sm sm:text-base font-medium tracking-tight"
               >
-                {socialLink.label}
+                <div className="absolute -top-6 pointer-events-none translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:opacity-100">
+                  <socialLink.Icon className="text-xl sm:text-2xl" />
+                </div>
+                <span>{socialLink.label}</span>
                 <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </a>
             ))}
