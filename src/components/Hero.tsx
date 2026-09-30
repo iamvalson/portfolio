@@ -24,9 +24,10 @@ const Hero = () => {
           </div>
 
           <p className="font-inter font-medium text-grey text-lg sm:text-xl md:text-2xl leading-relaxed">
-            Working across software engineering, visual storytelling, and
-            creative technology. Focused on building reliable things with
-            intention, from systems in code to stories captured on an iPhone.
+            Working across software and systems engineering, visual
+            storytelling, and creative technology. Focused on building reliable
+            things with intention, from systems in code to stories captured on
+            an iPhone.
           </p>
         </div>
         <div>
