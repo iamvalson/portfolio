@@ -14,7 +14,7 @@ const Projects = () => {
             <span className="mb-4 block font-space-grotesk text-sm font-semibold tracking-widest text-grey uppercase sm:mb-6 sm:text-base">
               Work
             </span>
-            <h1 className="mb-4 font-space-grotesk text-4xl font-bold leading-tight tracking-tight text-black sm:mb-6 sm:text-5xl md:text-6xl">
+            <h1 className="mb-4 font-space-grotesk text-4xl font-bold leading-tight tracking-tight text-foreground sm:mb-6 sm:text-5xl md:text-6xl">
               Selected projects
             </h1>
             <p className="font-inter text-lg font-medium leading-relaxed text-grey sm:text-xl md:text-2xl">
@@ -23,7 +23,7 @@ const Projects = () => {
           </header>
 
           <section>
-            <div className="border-t border-black/10">
+            <div className="border-t border-border">
               {PROJECTS.map((project) => (
                 <ProjectRow key={project.id} project={project} />
               ))}
