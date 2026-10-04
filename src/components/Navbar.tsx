@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import Container from "./Container";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,15 +32,18 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-30 w-full bg-[#f9f9f9]/95 backdrop-blur-xs">
+      <header className="fixed top-0 left-0 right-0 z-30 w-full bg-background/95 backdrop-blur-xs">
         <Container>
-          <div className="flex items-center justify-between py-4 sm:py-6">
-            <a
-              href="/"
-              className="font-space-grotesk text-xl sm:text-2xl font-semibold tracking-tighter"
-            >
-              VALENTINE
-            </a>
+          <div className="flex items-center justify-between py-2 sm:py-4">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <a
+                href="/"
+                className="font-space-grotesk text-xl sm:text-2xl font-semibold tracking-tighter"
+              >
+                VALENTINE
+              </a>
+              <ThemeToggle />
+            </div>
 
             {/* Desktop nav */}
             <nav className="hidden items-center gap-8 md:flex">
@@ -57,7 +61,7 @@ const Navbar = () => {
                   )}
                 </a>
               ))}
-              <button className="cursor-pointer bg-stone-950 px-3 py-2 font-space-grotesk font-medium uppercase text-white transition-opacity hover:opacity-90">
+              <button className="cursor-pointer bg-accent px-3 py-2 font-space-grotesk font-medium uppercase text-accent-foreground transition-opacity hover:opacity-90">
                 Contact
               </button>
             </nav>
@@ -66,7 +70,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
-              className="cursor-pointer p-1 text-stone-900 md:hidden"
+              className="cursor-pointer p-1 text-foreground md:hidden"
             >
               <HiMenu className="text-2xl sm:text-3xl" />
             </button>
@@ -86,7 +90,7 @@ const Navbar = () => {
 
       {/* Side drawer */}
       <div
-        className={`fixed top-0 right-0 z-50 flex h-dvh w-[88vw] max-w-md flex-col justify-between bg-[#f9f9f9] shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+        className={`fixed top-0 right-0 z-50 flex h-dvh w-[88vw] max-w-md flex-col justify-between bg-background shadow-2xl transition-transform duration-300 ease-out md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -95,7 +99,7 @@ const Navbar = () => {
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close menu"
-            className="cursor-pointer p-1 text-stone-900 transition-transform hover:scale-105 active:scale-95"
+            className="cursor-pointer p-1 text-foreground transition-transform hover:scale-105 active:scale-95"
           >
             <HiX className="text-3xl sm:text-4xl" />
           </button>
@@ -108,7 +112,7 @@ const Navbar = () => {
               href={navLink.href}
               key={navLink.href}
               onClick={() => setIsOpen(false)}
-              className="group relative font-space-grotesk text-3xl sm:text-4xl font-bold uppercase tracking-tight text-stone-900 transition-colors hover:text-text-grey"
+              className="group relative font-space-grotesk text-3xl sm:text-4xl font-bold uppercase tracking-tight text-foreground transition-colors hover:text-text-grey"
             >
               <span className="relative inline-block">
                 {navLink.label}
@@ -120,7 +124,7 @@ const Navbar = () => {
           <a
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="mt-4 inline-block w-full bg-stone-950 py-3.5 sm:py-4 text-center font-space-grotesk text-base sm:text-lg font-medium uppercase text-white transition-opacity hover:opacity-90"
+            className="mt-4 inline-block w-full bg-accent py-3.5 sm:py-4 text-center font-space-grotesk text-base sm:text-lg font-medium uppercase text-accent-foreground transition-opacity hover:opacity-90"
           >
             Contact
           </a>

@@ -5,20 +5,253 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background: #f9f9f9;
+  --foreground: #1b1917;
+  --muted: #5a6061;
+  --muted-strong: #646464;
+  --surface: #efefed;
+  --surface-raised: #ffffff;
+  --border: rgba(27, 25, 23, 0.12);
+  --accent: #1b1917;
+  --accent-foreground: #f4f4f4;
+}
+
+[data-theme="dark"] {
+  --background: #171716;
+  --foreground: #f4f4f1;
+  --muted: #a8aaa5;
+  --muted-strong: #c5c6c1;
+  --surface: #242422;
+  --surface-raised: #30302d;
+  --border: rgba(244, 244, 241, 0.16);
+  --accent: #f4f4f1;
+  --accent-foreground: #171716;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: #f9f9f9;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition:
+    background-color 350ms ease,
+    color 350ms ease;
 }
 
 ::selection {
-  background-color: #1b1917;
-  color: #f4f4f4;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 @theme {
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-inter: "Inter", sans-serif;
 
-  --color-grey: #5a6061;
-  --color-text-grey: #646464;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-grey: var(--muted);
+  --color-text-grey: var(--muted-strong);
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  width: 1.8rem;
+  height: 3.6rem;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: var(--foreground);
+  background: none;
+  border: none;
+  padding: 0;
+  /* Ensure 44px minimum touch target on mobile */
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* ── SVG Bulb ── */
+.theme-toggle__bulb-svg {
+  width: 1.3rem;
+  height: auto;
+  flex-shrink: 0;
+  color: currentColor;
+  transition: filter 350ms ease;
+}
+
+.theme-toggle.is-light .theme-toggle__bulb-svg {
+  filter: drop-shadow(0 0 3px rgba(255, 200, 80, 0.5))
+    drop-shadow(0 0 7px rgba(255, 180, 50, 0.25));
+}
+
+.theme-toggle.is-dark .theme-toggle__bulb-svg {
+  filter: none;
+}
+
+.theme-toggle__glass {
+  transition:
+    fill 350ms ease,
+    stroke 350ms ease;
+}
+
+.theme-toggle__filament {
+  transition:
+    stroke 350ms ease,
+    opacity 350ms ease;
+}
+
+/* ── Rope / Pull Cord ── */
+.theme-toggle__cord {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 2px;
+  height: 0.85rem;
+  margin-top: -1px;
+  transform-origin: top center;
+  transition:
+    height 120ms ease-out,
+    transform 120ms ease-out;
+}
+
+/* Rope texture — repeating diagonal stripes to simulate braided twine */
+.theme-toggle__rope-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 0.45rem);
+  border-radius: 1px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--foreground) 0px,
+    var(--foreground) 1.2px,
+    transparent 1.2px,
+    transparent 2.4px
+  );
+  opacity: 0.55;
+  transition: background 350ms ease;
+}
+
+/* Wooden bead / pull handle */
+.theme-toggle__handle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle at 38% 35%,
+    #c49a5c 0%,
+    #a07840 60%,
+    #7a5a2e 100%
+  );
+  border: 1px solid rgba(100, 70, 30, 0.4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  transition:
+    background 350ms ease,
+    border-color 350ms ease;
+}
+
+/* Dark-mode bead — slightly darker wood */
+.theme-toggle.is-dark .theme-toggle__handle {
+  background: radial-gradient(
+    circle at 38% 35%,
+    #9a7a4c 0%,
+    #7a5e38 60%,
+    #5a4020 100%
+  );
+  border-color: rgba(60, 40, 15, 0.5);
+}
+
+/* ── Pull animation ── */
+.theme-toggle.is-pulling .theme-toggle__cord {
+  height: 1.15rem;
+  animation: cord-swing 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cord-swing {
+  0% {
+    transform: scaleY(1);
+  }
+  20% {
+    transform: translateY(0.25rem) rotate(1.5deg) scaleY(1.08);
+  }
+  48% {
+    transform: translateY(0.08rem) rotate(-1.5deg);
+  }
+  75% {
+    transform: rotate(0.6deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+/* ── sm+ breakpoint — scale up to full size ── */
+@media (min-width: 640px) {
+  .theme-toggle {
+    width: 2.2rem;
+    height: 4.4rem;
+  }
+
+  .theme-toggle__bulb-svg {
+    width: 1.6rem;
+  }
+
+  .theme-toggle.is-light .theme-toggle__bulb-svg {
+    filter: drop-shadow(0 0 4px rgba(255, 200, 80, 0.55))
+      drop-shadow(0 0 10px rgba(255, 180, 50, 0.3));
+  }
+
+  .theme-toggle__cord {
+    width: 3px;
+    height: 1.2rem;
+  }
+
+  .theme-toggle__rope-texture {
+    height: calc(100% - 0.55rem);
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--foreground) 0px,
+      var(--foreground) 1.5px,
+      transparent 1.5px,
+      transparent 3px
+    );
+  }
+
+  .theme-toggle__handle {
+    width: 0.55rem;
+    height: 0.55rem;
+  }
+
+  .theme-toggle.is-pulling .theme-toggle__cord {
+    height: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

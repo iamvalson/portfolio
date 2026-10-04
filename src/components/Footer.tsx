@@ -1,4 +1,10 @@
-import { FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaTiktok } from "react-icons/fa6";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTiktok,
+  FaXTwitter,
+} from "react-icons/fa6";
 import Container from "./Container";
 
 const Footer = () => {
@@ -16,7 +22,7 @@ const Footer = () => {
       Icon: FaGithub,
     },
     {
-      label: "X",
+      label: "X (Twitter)",
       href: "https://x.com/earthtovalentin",
       Icon: FaXTwitter,
     },
@@ -27,13 +33,13 @@ const Footer = () => {
     },
     {
       label: "Tiktok",
-      href: "https://tiktok.com/earthtovalentine",
+      href: "https://www.tiktok.com/@earthtovalentine",
       Icon: FaTiktok,
     },
   ];
 
   return (
-    <footer className="bg-stone-100 py-8 sm:py-10">
+    <footer className="bg-surface py-8 sm:py-10">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">

@@ -50,7 +50,7 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
   return (
     <>
       <div
-        className="group relative block border-b border-black/10 py-10 transition-colors duration-500 hover:bg-black/2 sm:py-14 px-4 sm:px-6 lg:px-8 -mx-4 sm:-mx-6 lg:-mx-8"
+        className="group relative block border-b border-border py-10 transition-colors duration-500 hover:bg-foreground/5 sm:py-14 px-4 sm:px-6 lg:px-8 -mx-4 sm:-mx-6 lg:-mx-8"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -72,7 +72,7 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
 
             <div className="max-w-xl transition-transform duration-500 ease-out group-hover:translate-x-3">
               <div className="mb-4 flex flex-wrap items-baseline gap-3">
-                <h2 className="font-space-grotesk text-3xl font-bold text-black sm:text-4xl md:text-5xl">
+                <h2 className="font-space-grotesk text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
                   {name}
                 </h2>
                 <span className="font-space-grotesk text-base font-medium text-grey/50">
@@ -88,14 +88,14 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
                 {technologies.split(" · ").map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-full border border-black/10 px-3 py-1 font-space-grotesk text-xs font-medium text-grey"
+                    className="rounded-full border border-border px-3 py-1 font-space-grotesk text-xs font-medium text-grey"
                   >
                     {tech}
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap items-center gap-6 font-inter text-sm font-semibold text-black">
+              <div className="flex flex-wrap items-center gap-6 font-inter text-sm font-semibold text-foreground">
                 <a
                   href={githubLink}
                   target="_blank"
@@ -136,14 +136,14 @@ const ProjectRow = ({ project }: ProjectRowProps) => {
               <img
                 src={image}
                 alt={`${name} preview`}
-                className="h-full w-full bg-[#f4f4f4] object-cover opacity-90 grayscale transition-all duration-700 hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                className="h-full w-full bg-surface-raised object-cover opacity-90 grayscale transition-all duration-700 hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
               />
             </button>
 
             {/* Image preview - Mobile */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="mt-8 block h-55 w-full overflow-hidden bg-[#f4f4f4] sm:h-75 lg:hidden"
+              className="mt-8 block h-55 w-full overflow-hidden bg-surface-raised sm:h-75 lg:hidden"
             >
               <img
                 src={image}

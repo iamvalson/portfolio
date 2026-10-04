@@ -3,7 +3,7 @@ import me from "../assets/earthtovalentine.webp";
 const Hero = () => {
   return (
     <section className="pt-24 sm:pt-28 md:pt-32">
-      <div className="bg-white w-fit p-1.5 sm:p-2 rounded-full mb-4 sm:mb-6 shadow-xs">
+      <div className="bg-surface-raised w-fit p-1.5 sm:p-2 rounded-full mb-4 sm:mb-6 shadow-xs">
         <img
           src={me}
           alt="Image of Divine Valentine Owai"
@@ -33,22 +33,22 @@ const Hero = () => {
         <div>
           <p className="font-inter font-medium text-grey text-base sm:text-lg md:text-xl leading-relaxed">
             Take a look at some of the things I've built on{" "}
-            <a href="/projects" className="group relative text-black">
+            <a href="/projects" className="group relative text-foreground">
               Projects
               <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
             , see the world through my lens on{" "}
-            <a href="/reels" className="group relative text-black">
+            <a href="/reels" className="group relative text-foreground">
               Reels
               <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
             , learn a little more about the person behind the work on{" "}
-            <a href="/about" className="group relative text-black">
+            <a href="/about" className="group relative text-foreground">
               About
               <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
             , or say hello through{" "}
-            <a href="/contact" className="group relative text-black">
+            <a href="/contact" className="group relative text-foreground">
               Contact
               <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
